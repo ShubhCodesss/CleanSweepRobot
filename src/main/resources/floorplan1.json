@@ -1,0 +1,40 @@
+{
+  "gridSize": 5,
+  "cells": [
+    [
+      {"type": "hardwood", "obstacle": false},
+      {"type": "hardwood", "obstacle": false},
+      {"type": "hardwood", "obstacle": false},
+      {"type": "carpet", "obstacle": false},
+      {"type": "carpet", "obstacle": false}
+    ],
+    [
+      {"type": "hardwood", "obstacle": false},
+      {"type": "carpet", "obstacle": false},
+      {"type": "carpet", "obstacle": false},
+      {"type": "carpet", "obstacle": false},
+      {"type": "hardwood", "obstacle": false}
+    ],
+    [
+      {"type": "hardwood", "obstacle": false},
+      {"type": "hardwood", "obstacle": false},
+      {"type": "tile", "obstacle": false},
+      {"type": "tile", "obstacle": false},
+      {"type": "tile", "obstacle": false}
+    ],
+    [
+      {"type": "hardwood", "obstacle": false},
+      {"type": "carpet", "obstacle": false},
+      {"type": "tile", "obstacle": false},
+      {"type": "tile", "obstacle": false},
+      {"type": "tile", "obstacle": false}
+    ],
+    [
+      {"type": "hardwood", "obstacle": false},
+      {"type": "carpet", "obstacle": false},
+      {"type": "tile", "obstacle": false},
+      {"type": "tile", "obstacle": false},
+      {"type": "tile", "obstacle": false}
+    ]
+  ]
+}
