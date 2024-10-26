@@ -15,6 +15,18 @@ public class FloorPlan {
     public FloorPlan() {
     }
 
+
+    public boolean hasChargingStation() {
+        for (int y = 0; y < gridSize; y++) {
+            for (int x = 0; x < gridSize; x++) {
+                if (cells[y][x].isChargingStation()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // Getters and setters
 
     /**

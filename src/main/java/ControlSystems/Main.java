@@ -13,7 +13,7 @@ public class Main {
             // Load the floor plan from the JSON file
             InputStream inputStream = Main.class.getResourceAsStream("/floorplan1.json");
             if (inputStream == null) {
-                System.err.println("Could not find floorplan.json in resources.");
+                System.err.println("Could not find floorplan1.json in resources.");
                 return;
             }
             FloorPlan floorPlan = FloorPlanLoader.loadFloorPlan(inputStream);
@@ -24,8 +24,6 @@ public class Main {
             // Simulate the robot navigating until it shuts down
             while (!robot.isShutDown()) {
                 robot.navigate();
-                // Add a delay if necessary
-                // Thread.sleep(1000);
             }
         } catch (IOException e) {
             System.err.println("Error loading floor plan: " + e.getMessage());

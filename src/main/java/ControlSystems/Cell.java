@@ -1,4 +1,3 @@
-// src/main/java/ControlSystems/Cell.java
 package ControlSystems;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Cell {
-    private String type;      // Floor type (e.g., hardwood, carpet)
-    private boolean obstacle; // Indicates if there is an obstacle in the cell
+    private String type;            // Floor type (e.g., hardwood, carpet, tile)
+    private boolean obstacle;       // Indicates if there is an obstacle in the cell
+    private boolean chargingStation;// Indicates if the cell has a charging station
+    private boolean stairs;         // Indicates if the cell has stairs
 
     // Default constructor
     public Cell() {
@@ -17,35 +18,35 @@ public class Cell {
 
     // Getters and setters
 
-    /**
-     * Gets the floor type of the cell.
-     * @return Floor type as a String.
-     */
     public String getType() {
         return type;
     }
 
-    /**
-     * Sets the floor type of the cell.
-     * @param type Floor type to set.
-     */
     public void setType(String type) {
         this.type = type;
     }
 
-    /**
-     * Checks if the cell has an obstacle.
-     * @return True if there is an obstacle, false otherwise.
-     */
     public boolean isObstacle() {
         return obstacle;
     }
 
-    /**
-     * Sets whether the cell has an obstacle.
-     * @param obstacle True to set an obstacle, false otherwise.
-     */
     public void setObstacle(boolean obstacle) {
         this.obstacle = obstacle;
+    }
+
+    public boolean isChargingStation() {
+        return chargingStation;
+    }
+
+    public void setChargingStation(boolean chargingStation) {
+        this.chargingStation = chargingStation;
+    }
+
+    public boolean isStairs() {
+        return stairs;
+    }
+
+    public void setStairs(boolean stairs) {
+        this.stairs = stairs;
     }
 }

@@ -1,4 +1,3 @@
-// src/main/java/ControlSystems/CleanSweepNavigation.java
 package ControlSystems;
 
 import java.util.ArrayList;
@@ -14,8 +13,55 @@ public class CleanSweepNavigation {
     private boolean isActive;        // Indicates if the robot is active
     private boolean shutdown;        // Indicates if the robot has shut down
     private FloorPlan floorPlan;     // The floor plan the robot navigates
-    private Set<String> visitedCells; // Set of visited cells to avoid revisiting
+    private Set<String> visitedCells;// Set of visited cells to avoid revisiting
     private int batteryLevel;        // Battery level of the robot
+
+
+
+    /**
+     * Placeholder method to detect stairs at the current position.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @return True if stairs are detected, false otherwise.
+     */
+    protected boolean isStairs(int x, int y) {
+        if (x < 0 || x >= floorPlan.getGridSize() || y < 0 || y >= floorPlan.getGridSize()) {
+            return false; // Out-of-bounds, no stairs detected
+        }
+        return floorPlan.getCells()[y][x].isStairs(); // Check if the current cell has stairs
+    }
+
+    /**
+     * Manually sets the robot's position (used for testing or user intervention).
+     * @param x X coordinate to set.
+     * @param y Y coordinate to set.
+     */
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+        System.out.println("Robot position manually set to: (" + x + ", " + y + ")");
+    }
+    public boolean isAtChargingStation() {
+        return floorPlan.getCells()[y][x].isChargingStation();
+    }
+
+    /**
+     * Activates or deactivates the robot.
+     * @param active True to activate, false to deactivate.
+     */
+    public void setActive(boolean active) {
+        this.isActive = active;
+        if (active) {
+            this.shutdown = false; // Reset shutdown flag on reactivation
+            System.out.println("Robot reactivated.");
+        } else {
+            System.out.println("Robot deactivated.");
+        }
+    }
+
+    // Battery threshold to trigger return-to-charge behavior
+
+    private static final int LOW_BATTERY_THRESHOLD = 20;
 
     /**
      * Constructor to initialize the robot's starting position and floor plan.
@@ -35,22 +81,10 @@ public class CleanSweepNavigation {
 
     // Getters
 
-    /**
-     * Gets the current X coordinate.
-     * @return Current X coordinate.
-     */
     public int getX() { return x; }
 
-    /**
-     * Gets the current Y coordinate.
-     * @return Current Y coordinate.
-     */
     public int getY() { return y; }
 
-    /**
-     * Checks if the robot has shut down.
-     * @return True if shut down, false otherwise.
-     */
     public boolean isShutDown() { return shutdown; }
 
     /**
@@ -61,33 +95,79 @@ public class CleanSweepNavigation {
             System.out.println("Robot is inactive or has shut down.");
             return; // Stop navigating if the robot is inactive or shutdown
         }
-
-        // Mark current position as visited
+        // Mark the current position as visited
         String currentPosition = x + "," + y;
         visitedCells.add(currentPosition);
 
-        // Get sensor data from adjacent cells
+        // Example of a simple movement logic that only moves right if possible
+        if (!isObstacle(x + 1, y) && x + 1 < floorPlan.getGridSize() && !visitedCells.contains((x + 1) + "," + y)) {
+            moveRight();
+        } else if (!isObstacle(x, y + 1) && y + 1 < floorPlan.getGridSize() && !visitedCells.contains(x + "," + (y + 1))) {
+            moveDown();
+        } else if (!isObstacle(x - 1, y) && x - 1 >= 0 && !visitedCells.contains((x - 1) + "," + y)) {
+            moveLeft();
+        } else if (!isObstacle(x, y - 1) && y - 1 >= 0 && !visitedCells.contains(x + "," + (y - 1))) {
+            moveUp();
+        }
+
+        // Update battery level based on floor type
+        batteryLevel -= getEnergyConsumption(getFloorType(x, y));
+        System.out.println("Battery Level after move: " + batteryLevel + "%");
+
+        // Check if battery is depleted
+        if (batteryLevel <= 0) {
+            shutdown = true;
+            System.out.println("Battery depleted! Shutting down.");
+        }
+
+        // Gather possible moves
+        List<String> possibleMoves = new ArrayList<>();
+
+        if (!isObstacle(x + 1, y)) possibleMoves.add("RIGHT");
+        if (!isObstacle(x - 1, y)) possibleMoves.add("LEFT");
+        if (!isObstacle(x, y + 1)) possibleMoves.add("DOWN");
+        if (!isObstacle(x, y - 1)) possibleMoves.add("UP");
+
+        // Shutdown if no moves are possible
+        if (possibleMoves.isEmpty()) {
+            shutdown = true;
+            System.out.println("All sides blocked. Robot shutting down.");
+            return;
+        }
+
+
+
+        // Check if battery is low and only navigate to charging station if one exists
+        if (batteryLevel <= LOW_BATTERY_THRESHOLD && floorPlan.hasChargingStation() && !isAtChargingStation()) {
+            System.out.println("Battery level low (20%). Navigating to charging station...");
+            moveToChargingStation();
+        } else if (isAtChargingStation()) {
+            System.out.println("Reached charging station. Recharging...");
+            batteryLevel = 100; // Reset battery to full
+            System.out.println("Battery fully recharged.");
+        } else {
+            // Regular movement logic (move to the right as a placeholder)
+            moveRight();
+            batteryLevel -= getEnergyConsumption(getFloorType(x, y)); // Decrease battery based on floor type
+            System.out.println("Battery Level after move: " + batteryLevel + "%");
+
+            // Check if battery is depleted
+            if (batteryLevel <= 0) {
+                shutdown = true;
+                System.out.println("Battery depleted! Shutting down.");
+            }
+        }
+    // Get sensor data from adjacent cells
         boolean sensorLeft = isObstacle(x - 1, y);
         boolean sensorRight = isObstacle(x + 1, y);
         boolean sensorUp = isObstacle(x, y - 1);
         boolean sensorDown = isObstacle(x, y + 1);
         boolean sensorBottom = isStairs(x, y); // Implement isStairs if necessary
 
-        // Get floor types of adjacent cells
-        String floorLeft = getFloorType(x - 1, y);
-        String floorRight = getFloorType(x + 1, y);
-        String floorUp = getFloorType(x, y - 1);
-        String floorDown = getFloorType(x, y + 1);
-
         // Print current position and sensor states for debugging
         System.out.println("Current Position: (" + x + ", " + y + ")");
         System.out.println("Current Floor Type: " + getFloorType(x, y));
         System.out.println("Battery Level: " + batteryLevel + "%");
-        System.out.println("Sensors:");
-        System.out.println("  Left - Obstacle: " + sensorLeft + ", Floor Type: " + floorLeft);
-        System.out.println("  Right - Obstacle: " + sensorRight + ", Floor Type: " + floorRight);
-        System.out.println("  Up - Obstacle: " + sensorUp + ", Floor Type: " + floorUp);
-        System.out.println("  Down - Obstacle: " + sensorDown + ", Floor Type: " + floorDown);
 
         // Check for shutdown due to stairs
         if (sensorBottom) {
@@ -97,37 +177,28 @@ public class CleanSweepNavigation {
         }
 
         // Determine possible moves to unvisited cells
-        List<String> possibleMoves = new ArrayList<>();
-
+        List<String> possibleMovesCells = new ArrayList<>();
         if (!sensorRight && x + 1 < floorPlan.getGridSize() && !visitedCells.contains((x + 1) + "," + y)) {
-            possibleMoves.add("RIGHT");
+            possibleMovesCells.add("RIGHT");
         }
         if (!sensorDown && y + 1 < floorPlan.getGridSize() && !visitedCells.contains(x + "," + (y + 1))) {
-            possibleMoves.add("DOWN");
+            possibleMovesCells.add("DOWN");
         }
         if (!sensorLeft && x - 1 >= 0 && !visitedCells.contains((x - 1) + "," + y)) {
-            possibleMoves.add("LEFT");
+            possibleMovesCells.add("LEFT");
         }
         if (!sensorUp && y - 1 >= 0 && !visitedCells.contains(x + "," + (y - 1))) {
-            possibleMoves.add("UP");
+            possibleMovesCells.add("UP");
         }
 
-        if (!possibleMoves.isEmpty()) {
-            // Choose the first available move (could be enhanced with better logic)
-            String move = possibleMoves.get(0);
+        // Move the robot if possible
+        if (!possibleMovesCells.isEmpty()) {
+            String move = possibleMovesCells.get(0);
             switch (move) {
-                case "RIGHT":
-                    moveRight();
-                    break;
-                case "DOWN":
-                    moveDown();
-                    break;
-                case "LEFT":
-                    moveLeft();
-                    break;
-                case "UP":
-                    moveUp();
-                    break;
+                case "RIGHT": moveRight(); break;
+                case "DOWN": moveDown(); break;
+                case "LEFT": moveLeft(); break;
+                case "UP": moveUp(); break;
             }
             System.out.println("Moved " + move + " to position: (" + x + ", " + y + ")");
 
@@ -142,11 +213,41 @@ public class CleanSweepNavigation {
                 shutdown();
             }
         } else {
-            // No unvisited adjacent cells, robot may choose to backtrack or shut down
             System.out.println("No unvisited adjacent cells available.");
             shutdown();
         }
     }
+
+    /**
+     * Moves the robot to the nearest charging station and recharges the battery.
+     */
+    private void moveToChargingStation() {
+        System.out.println("Battery level low (20%). Navigating to charging station...");
+
+        // Assume charging station is at (2, 2) for this example
+        int chargingStationX = 2;
+        int chargingStationY = 2;
+
+        if (x < chargingStationX) {
+            x++;
+        } else if (x > chargingStationX) {
+            x--;
+        } else if (y < chargingStationY) {
+            y++;
+        } else if (y > chargingStationY) {
+            y--;
+        }
+
+        System.out.println("Current Position: (" + x + ", " + y + ")");
+
+        // Check if at charging station after each move
+        if (isAtChargingStation()) {
+            System.out.println("Reached charging station. Recharging...");
+            batteryLevel = 100; // Reset battery to full
+            System.out.println("Battery fully recharged.");
+        }
+    }
+
 
     /**
      * Checks if the cell at the specified coordinates has an obstacle.
@@ -160,6 +261,8 @@ public class CleanSweepNavigation {
         }
         return floorPlan.getCells()[y][x].isObstacle();
     }
+
+
 
     /**
      * Gets the floor type of the cell at the specified coordinates.
@@ -175,18 +278,6 @@ public class CleanSweepNavigation {
     }
 
     /**
-     * Placeholder method to detect stairs at the current position.
-     * Can be overridden by subclasses for testing purposes.
-     * @param x X coordinate.
-     * @param y Y coordinate.
-     * @return True if stairs are detected, false otherwise.
-     */
-    protected boolean isStairs(int x, int y) {
-        // Implement logic to detect stairs if applicable
-        return false;
-    }
-
-    /**
      * Calculates the energy consumption based on the floor type.
      * @param floorType Type of the floor.
      * @return Energy consumption as an integer.
@@ -194,71 +285,25 @@ public class CleanSweepNavigation {
     private int getEnergyConsumption(String floorType) {
         switch (floorType) {
             case "hardwood":
-                return 1;
+                return 1; // Lower energy consumption
+            case "tile":
+                return 2; // Moderate energy consumption
             case "carpet":
-                return 2;
+                return 5; // Higher energy consumption for carpet
             default:
                 return 1; // Default consumption
         }
     }
 
-    // Movement methods
 
-    /**
-     * Moves the robot one cell to the right.
-     */
-    private void moveRight() {
-        x++;
-    }
+    private void moveRight() { x++; }
 
-    /**
-     * Moves the robot one cell to the left.
-     */
-    private void moveLeft() {
-        x--;
-    }
+    private void moveLeft() { x--; }
 
-    /**
-     * Moves the robot one cell upwards.
-     */
-    private void moveUp() {
-        y--;
-    }
+    private void moveUp() { y--; }
 
-    /**
-     * Moves the robot one cell downwards.
-     */
-    private void moveDown() {
-        y++;
-    }
+    private void moveDown() { y++; }
 
-    // Additional methods
-
-    /**
-     * Manually sets the robot's position (used for testing or user intervention).
-     * @param x X coordinate to set.
-     * @param y Y coordinate to set.
-     */
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * Activates or deactivates the robot.
-     * @param active True to activate, false to deactivate.
-     */
-    public void setActive(boolean active) {
-        this.isActive = active;
-        if (active) {
-            this.shutdown = false; // Reset shutdown flag on reactivation
-            System.out.println("Robot reactivated.");
-        }
-    }
-
-    /**
-     * Shuts down the robot.
-     */
     private void shutdown() {
         isActive = false;
         shutdown = true;
