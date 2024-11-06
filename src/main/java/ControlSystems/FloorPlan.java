@@ -1,4 +1,3 @@
-// src/main/java/ControlSystems/FloorPlan.java
 package ControlSystems;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -15,7 +14,10 @@ public class FloorPlan {
     public FloorPlan() {
     }
 
-
+    /**
+     * Checks if the floor plan has at least one charging station.
+     * @return True if there is a charging station, false otherwise.
+     */
     public boolean hasChargingStation() {
         for (int y = 0; y < gridSize; y++) {
             for (int x = 0; x < gridSize; x++) {

@@ -1,4 +1,3 @@
-// src/main/java/ControlSystems/Main.java
 package ControlSystems;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Load the floor plan from the JSON file
-            InputStream inputStream = Main.class.getResourceAsStream("/floorplan1.json");
+            InputStream inputStream = Main.class.getResourceAsStream("/floorplan2.json");
             if (inputStream == null) {
                 System.err.println("Could not find floorplan1.json in resources.");
                 return;
@@ -26,7 +25,7 @@ public class Main {
                 robot.navigate();
             }
         } catch (IOException e) {
-            System.err.println("Error loading floor plan: " + e.getMessage());
+            System.err.println("Error during simulation: " + e.getMessage());
         }
     }
 }

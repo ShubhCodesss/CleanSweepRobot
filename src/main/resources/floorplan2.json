@@ -1,0 +1,125 @@
+{
+  "gridSize": 10,
+  "cells": [
+    [
+      {"type": "hardwood", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "carpet", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "tile", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "carpet", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": true, "stairs": false},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false}
+    ],
+    [
+      {"type": "hardwood", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "hardwood", "obstacle": true, "chargingStation": false, "stairs": false},
+      {"type": "tile", "obstacle": false, "chargingStation": false, "stairs": false},
+      {"type": "carpet", "obstacle": false, "chargingStation": false, "stairs": true},
+      {"type": "hardwood", "obstacle": false, "chargingStation": true, "stairs": false}
+    ]
+  ]
+}
